@@ -1,0 +1,24 @@
+---
+title: "Plotly Presentation"
+author: "Simon W Laufried"
+date: "22nd October 2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Stocks
+```{r stocks, echo=FALSE, comment="", message=FALSE, warning=FALSE}
+library(plotly)
+library(tidyr)
+library(dplyr)
+data("EuStockMarkets")
+stocks <- as.data.frame(EuStockMarkets) %>%
+    gather(index, price) %>%
+    mutate(time = rep(time(EuStockMarkets), 4))
+plot_ly(stocks, t = ~time, y = ~price, color = ~index, type="scatter",mode="lines")
+```
+
